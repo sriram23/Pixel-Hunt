@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
+import ImageCard from "./components/ImageCard";
 
 const App = () => {
   const [query, setQuery] = useState("");
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPage] = useState(0);
-  const PER_PAGE = 20;
+  const PER_PAGE = 18;
   const URL = process.env.URL +
   "search/photos/" +
   "?query=" +
@@ -73,16 +74,9 @@ const App = () => {
           Search
         </button>
       </div>
-      <div className="flex flex-wrap w-full m-auto">
+      <div className="flex flex-wrap border justify-center">
         {data.map((image) => (
-          <div className="m-2 cursor-zoom-in border">
-            <img
-              className="w-full h-full object-cover"
-              key={image.id}
-              src={image.urls.thumb}
-              alt={image.alt_description}
-            />
-          </div>
+          <ImageCard image={image} />
         ))}
         {totalPages !== 0 && totalPages > currentPage && <button onClick={incrementPage} className="w-full border p-2 m-2">Load more</button>}
       </div>
