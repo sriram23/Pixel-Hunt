@@ -16,21 +16,42 @@ const App = () => {
   process.env.ACCESS_KEY
   const searchImage = async () => {
     setCurrentPage(1)
-    const res = await fetch(
-      URL
-    );
-    const data = await res.json();
-    console.log("Data: ", data);
-    setData(data.results);
-    setTotalPage(data.total_pages);
+    try {
+      const res = await fetch(
+        URL
+      );
+      console.log("Status: ", res.status)
+      if (res.status === 403) {
+        alert("API rate exceeded, please try again later");
+        return;
+      } else if (res.status === 200) {
+      const data = await res.json();
+      console.log("Data: ", data);
+      setData(data.results);
+      setTotalPage(data.total_pages);
+      }
+    } catch (error) {
+      console.error("Error: ", error);
+    }
   };
 
+
   const nextPage = async () => {
+    try{
     const res = await fetch(
       URL
     );
+    console.log("Status: ", res.status)
+      if (res.status === 403) {
+        alert("API rate exceeded, please try again later");
+        return;
+      } else if (res.status === 200) {
     const data = await res.json();
     setData((prv) => [...prv, ...data.results]);
+      }
+    } catch(error){
+      console.error("Error: ", error);
+    }
   }
   const incrementPage = () => {
     setCurrentPage((prv) => prv + 1);
