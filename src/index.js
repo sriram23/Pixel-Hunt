@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import ImageCard from "./components/ImageCard";
+const ImageCard = React.lazy(() => import('./components/ImageCard'))
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -61,8 +61,8 @@ const App = () => {
     nextPage()
   }, [currentPage])
   return (
-    <div className="min-h-screen w-full">
-      <h1 className="m-2 text-2xl text-bold">Pixel Hunt</h1>
+    <div className="min-h-screen w-full bg-gradient-to-b from-top-color to-bottom-color">
+      <h1 className="p-2 text-2xl text-bold">Pixel Hunt</h1>
       <div>
         <input
           className="m-2 p-2 border"
@@ -70,15 +70,17 @@ const App = () => {
           type="text"
           placeholder="Search for images"
         />
-        <button className="m-2 p-2 border" onClick={searchImage}>
+        <button className="m-2 p-2 border bg-button rounded-md" onClick={searchImage}>
           Search
         </button>
       </div>
       <div className="flex flex-wrap border justify-center">
         {data.map((image) => (
-          <ImageCard image={image} />
+          <Suspense key={image.id} fallback={<div>Loading...</div>}>
+            <ImageCard image={image} />
+          </Suspense>
         ))}
-        {totalPages !== 0 && totalPages > currentPage && <button onClick={incrementPage} className="w-full border p-2 m-2">Load more</button>}
+        {totalPages !== 0 && totalPages > currentPage && <button onClick={incrementPage} className="w-full border p-2 m-2 bg-button">Load more</button>}
       </div>
     </div>
   );
