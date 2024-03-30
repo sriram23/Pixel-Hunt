@@ -1,4 +1,4 @@
-const ImageCard = ({ image }) => {
+const ImageCard = ({ image, onUserClick }) => {
   return (
     <div
       className="relative m-2 w-full md:w-1/3 xl:w-1/4 cursor-zoom-in border p-auto rounded-md"
@@ -11,7 +11,7 @@ const ImageCard = ({ image }) => {
         src={image.urls.small}
         alt={image.alt_description}
       />
-      <div className="absolute top-0 opacity-0  hover:opacity-80 hover:shadow-inner  w-full h-full flex flex-col justify-end z-30 transition-all duration-200">
+      <div className="absolute top-0 opacity-0  hover:opacity-80 hover:shadow-inner  w-full h-full flex flex-col justify-end z-20 transition-all duration-200">
         <div className="flex justify-between items-center p-2 bg-slate-200">
           <div className="flex items-center cursor-pointer">
             <img
@@ -20,7 +20,7 @@ const ImageCard = ({ image }) => {
               alt={image.user.first_name + "'s profile"}
             />
             <div>
-              <h2 className="text-2xl">{image.user.first_name}</h2>
+              <h2 onClick={() => onUserClick(image)} className="text-2xl hover:underline">{image.user.first_name}</h2>
             </div>
           </div>
           <div>

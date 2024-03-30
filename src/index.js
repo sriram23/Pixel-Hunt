@@ -1,12 +1,16 @@
 import React, { Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-const ImageCard = React.lazy(() => import('./components/ImageCard'))
+// const ImageCard = React.lazy(() => import('./components/ImageCard'))
+import ImageCard from "./components/ImageCard";
+import ProfileCard from "./components/profileCard";
 
 const App = () => {
   const [query, setQuery] = useState("");
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPage] = useState(0);
+  const [userDetails, setUserDetails] = useState({});
+  const [showModal, setShowModal] = useState(false);
   const PER_PAGE = 18;
   const URL = process.env.URL +
   "search/photos/" +
@@ -35,6 +39,19 @@ const App = () => {
       console.error("Error: ", error);
     }
   };
+
+  const getUserDetails = async (img) => {
+    const res = await fetch(img.user.links.self, {
+      method: 'GET',
+      headers: {
+        Authorization: `Client-ID ${process.env.ACCESS_KEY}`, 
+      }
+    });
+    const data = await res.json();
+    console.log("User Details: ", data)
+    setUserDetails(data)
+    setShowModal(true)
+  }
 
 
   const nextPage = async () => {
@@ -77,11 +94,17 @@ const App = () => {
       <div className="flex flex-wrap border justify-center">
         {data.map((image) => (
           <Suspense key={image.id} fallback={<div>Loading...</div>}>
-            <ImageCard image={image} />
+            <ImageCard key={image.id} image={image} onUserClick={getUserDetails}/>
           </Suspense>
         ))}
         {totalPages !== 0 && totalPages > currentPage && <button onClick={incrementPage} className="w-full border p-2 m-2 bg-button">Load more</button>}
       </div>
+      {/* Modal */}
+      {showModal && <div onClick={() => setShowModal(false)} className="fixed top-0 bottom-0 right-0 left-0 w-screen h-screen z-20 flex item-center bg-slate-200 justify-center">
+          <div onClick={(e) => e.stopPropagation()} className="w-full lg:w-4/5 mt-24 lg:m-24 overflow-auto whitespace-normal z-50 bg-white">
+            <ProfileCard profile={userDetails}/>
+          </div>
+      </div>}
     </div>
   );
 };
