@@ -39,13 +39,11 @@ const App = () => {
     setCurrentPage(1);
     try {
       const res = await fetch(URL);
-      console.log("Status: ", res.status);
       if (res.status === 403) {
         alert("API rate exceeded, please try again later");
         return;
       } else if (res.status === 200) {
         const data = await res.json();
-        console.log("Data: ", data);
         setData(data.results);
         setTotalPage(data.total_pages);
       }
@@ -57,13 +55,11 @@ const App = () => {
   const randomImage = async () => {
     try {
       const res = await fetch(RANDOM_URL);
-      console.log("Status: ", res.status);
       if (res.status === 403) {
         alert("API rate exceeded, please try again later");
         return;
       } else if (res.status === 200) {
         const data = await res.json();
-        console.log("Data: ", data.urls.regular);
         if (data.urls.regular) {
           sessionStorage.setItem("bg", data?.urls?.regular);
         }
@@ -82,7 +78,6 @@ const App = () => {
       },
     });
     const data = await res.json();
-    console.log("User Details: ", data);
     setUserDetails(data);
     setShowModal(true);
   };
@@ -90,7 +85,6 @@ const App = () => {
   const nextPage = async () => {
     try {
       const res = await fetch(URL);
-      console.log("Status: ", res.status);
       if (res.status === 403) {
         alert("API rate exceeded, please try again later");
         return;
@@ -108,17 +102,8 @@ const App = () => {
   useEffect(() => {
     nextPage();
   }, [currentPage]);
-  console.log("BG: ", bg)
   return (
     <div className="relative min-h-screen h-full w-full z-50" style={{ backgroundImage: "url(" + bg + ")", backgroundSize: "cover" }}>
-      {/* <div className="absolute top-0 w-full h-full" style={{ backgroundImage: "url(" + bg + ")",  backgroundSize: "cover" }}> */}
-      {/* {bg?.urls?.regular && (
-        <img
-          className="absolute top-0 opacity-30 w-full h-full object-cover"
-          src={bg.urls.regular}
-          alt=""
-        />
-      )} */}
       <h1 className="p-2 text-2xl text-bold">Pixel Hunt</h1>
       <div className="z-50">
         <input
