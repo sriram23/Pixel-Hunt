@@ -103,7 +103,8 @@ const App = () => {
     nextPage();
   }, [currentPage]);
   return (
-    <div className="relative min-h-screen h-full w-full z-50" style={{ backgroundImage: "url(" + bg + ")", backgroundSize: "cover" }}>
+    <div className="relative min-h-screen h-full w-full" style={{ backgroundImage: "url(" + bg + ")", backgroundSize: "cover" }}>
+      <div className="sticky top-0 left-0 w-full bg-slate-50 bg-opacity-75 z-50">
       <h1 className="p-2 text-2xl text-bold">Pixel Hunt</h1>
       <div className="z-50">
         <input
@@ -118,6 +119,7 @@ const App = () => {
         >
           Search
         </button>
+      </div>
       </div>
       <div
         className="flex flex-wrap w-full border justify-center bg-slate-50 bg-opacity-50"
