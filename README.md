@@ -1,3 +1,11 @@
+[![Visits Badge](https://badges.pufler.dev/visits/sriram23/Pixel-Hunt)](https://badges.pufler.dev)
+[![Updated Badge](https://badges.pufler.dev/updated/sriram23/Pixel-Hunt)](https://badges.pufler.dev)
+[![Created Badge](https://badges.pufler.dev/created/sriram23/Pixel-Hunt)](https://badges.pufler.dev)
+![GitHub contributors](https://img.shields.io/github/contributors/sriram23/Pixel-Hunt?labelColor=black&color=%233fb911)
+![GitHub License](https://img.shields.io/github/license/sriram23/Pixel-Hunt?labelColor=black&color=%233fb911)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Fpixel-hunt.web.app&labelColor=black&color=%233fb911)
+![GitHub top language](https://img.shields.io/github/languages/top/sriram23/Pixel-Hunt?color=%233fb911)
+
 # Pixel Hunt
 
 Welcome to **Pixel Hunt**, an experimental image application leveraging the Unsplash APIs to provide a rich collection of high-quality images for users to discover and explore.
